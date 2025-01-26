@@ -1,0 +1,52 @@
+{# templates/album/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Albums{% endblock %}
+
+{% block content %}
+<!-- PAGE CAPTION -->
+<div class="page-caption-1">
+    <div class="caption-content">
+        <h2 class="text-anime">Albums</h2>
+        <div class="spacer-30 spacer-md-15"></div>
+        <p class="body-three text-anime">Discover our newest music <br>albums and singles</p>
+    </div>
+    <div class="bg-image" style="background-image: url('{{ asset('assets/images/hero-8.jpg') }}');"></div>
+</div>
+
+<!-- DISCOGRAPHY -->
+<div class="spacer-120 spacer-md-90 spacer-sm-30"></div>
+<div class="discography-page">
+    <div class="container px-4">
+        <div class="row g-4 g-md-5">
+            {% for album in albums %}
+                <a href="{{ path('single_album', {'id': album.id}) }}" class="col-xl-4 col-lg-4 col-md-4 col-6 one-album">
+                    <div class="image-anime">
+                        <img src="{{ asset('uploads/images/' ~ album.image) }}" alt="album">
+                    </div>
+                    <div class="discography-infos align-center">
+                        <h6 class="text-anime">{{ album.title }}</h6>
+                        <span class="text-anime">{{ album.publishedAt|date('Y') }}</span>
+                    </div>
+                </a>
+            {% else %}
+                <p>No albums found.</p>
+            {% endfor %}
+
+            <div class="pagination">
+                {{ knp_pagination_render(albums) }} 
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tiktok-videos">
+    <iframe src="https://www.tiktok.com/embed/video/{id-video-1}" width="325" height="575"></iframe>
+    <iframe src="https://www.tiktok.com/embed/video/{id-video-2}" width="325" height="575"></iframe>
+    <iframe src="https://www.tiktok.com/embed/video/{id-video-3}" width="325" height="575"></iframe>
+    <iframe src="https://www.tiktok.com/embed/video/{id-video-4}" width="325" height="575"></iframe>
+    <iframe src="https://www.tiktok.com/embed/video/{id-video-5}" width="325" height="575"></iframe>
+</div>
+
+{% endblock %}

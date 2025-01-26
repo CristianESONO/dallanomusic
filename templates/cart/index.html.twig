@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <!-- PAGE CAPTION -->
+    <div class="page-caption-1">
+        <div class="caption-content">
+            <h2>Tu Carrito</h2>
+        </div>
+        <div class="bg-image" style="background-image: url('{{ asset('assets/images/hero-8.jpg') }}');"></div>
+    </div>
+
+    <!-- Separator Line -->
+    <hr class="my-4">
+
+    {% if cartItems is empty %}
+        <div class="alert alert-info text-center mt-4" role="alert">
+            Tu carrito está vacío.
+        </div>
+    {% else %}
+        <div class="container mt-4">
+            <div class="table-responsive">
+                <table class="table table-hover text-center">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Imagen del Producto</th>
+                            <th scope="col">Nombre del Producto</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cartItems %}
+                        <tr>
+                            <td>
+                                <img src="{{ asset('uploads/images/' ~ item.product.imageUrl) }}" alt="{{ item.product.name }}" class="img-fluid rounded" style="width: 50px; height: 50px; object-fit: cover;">
+                            </td>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.product.price }} FCFA</td>
+                            <td>
+                                <div class="quantity-controls">
+                                    <a href="{{ path('cart_decrease', { 'id': item.product.id }) }}" class="btn btn-sm btn-outline-secondary decrease-quantity">
+                                        <i class="bi bi-dash-circle"></i>
+                                    </a>
+                                    <span class="quantity-display mx-2">{{ item.quantity }}</span>
+                                    <a href="{{ path('cart_add', { 'id': item.product.id }) }}" class="btn btn-sm btn-outline-secondary increase-quantity">
+                                        <i class="bi bi-plus-circle"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            <td>{{ item.product.price * item.quantity }} FCFA</td>
+                            <td>
+                                <a href="{{ path('cart_remove', { 'id': item.product.id }) }}" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Remove
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <!-- Total Price -->
+                <div class="d-flex justify-content-end mt-3">
+                    <h4><strong>Total:</strong> {{ totalPrice }} FCFA</h4>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+  <div class="container mt-4 text-center">
+    <hr class="my-4">
+    <a href="{{ path('cart_payment') }}" class="btn btn-success btn-lg">
+        <i class="bi bi-cart-check"></i> Pagar
+    </a>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="http://127.0.0.1:51813/j5S"></script>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="musician, band, dj">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melodica - Musician & Band Template</title>
+    <!-- Favicon -->
+    <link href="{{ asset('favicon.ico') }}" rel="shortcut icon" type="image/x-icon" />
+   
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-grid.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/swipper.css') }}"/>
+     
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+
+     <!-- Font -->
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Styles généraux */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Partie gauche */
+        .news-section {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-section h4.purple-gradient {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #6c5ce7;
+        }
+
+        .news-5 {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            border-left: 3px solid #6c5ce7;
+        }
+
+        .news-5 h5 {
+            font-size: 0.85rem;
+            color: #2d3436;
+            margin: 0 0 5px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .news-5 p {
+            font-size: 0.75rem;
+            color: #636e72;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+
+        /* Partie centrale */
+        .bio-text {
+            color: white !important;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            text-align: justify;
+            padding-right: 10px;
+        }
+
+        .bio-container {
+            background: rgba(0, 0, 0, 0.7) !important;
+            border-radius: 15px;
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #6c5ce7 rgba(255, 255, 255, 0.1);
+        }
+
+        .bio-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .bio-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .bio-container::-webkit-scrollbar-thumb {
+            background-color: #6c5ce7;
+            border-radius: 3px;
+        }
+
+        /* Partie droite */
+        .upcoming-gigs {
+            background: white;
+            border-radius: 15px;
+            padding: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .upcoming-gigs h4.purple-gradient {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #6c5ce7;
+        }
+
+        .youtube-videos {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .video-card {
+            position: relative;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .video-card iframe {
+            width: 100%;
+            height: 130px;
+            border: none;
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .upcoming-gigs {
+                margin-top: 15px;
+            }
+            
+            .video-card iframe {
+                height: 120px;
+            }
+        }
+
+        /* Ajustements responsive */
+        @media (max-width: 768px) {
+            .news-5 h5 {
+                font-size: 0.8rem;
+            }
+            
+            .news-5 p {
+                font-size: 0.7rem;
+            }
+            
+            .bio-text {
+                font-size: 0.85rem;
+            }
+        }
+
+        .artist-name {
+            color: white !important;
+        }
+
+        .artist-details li {
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+
+        .artist-details i {
+            color: #6c5ce7;
+        }
+
+        .bio-header {
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .bio-signature {
+            border-top-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .bio-container {
+                max-height: 400px;
+            }
+        }
+    </style>
+
+   
+</head>
+
+<body>
+   
+    <div class="site-wrap" data-barba="wrapper">
+        <main id="main" data-barba="container">
+            <!-- HEADER -->
+            <header class="type-1">
+                <div class="header-container-">
+                    <div class="row px-0 gx-0">
+                        <div class="col-xl-2 col-md-6 col-6">
+                            <a href="{{ path('app_home') }}"><img src="" alt="logo"></a>
+                        </div>
+                        <div class="col-xl-8 col-md-3 d-none d-xl-block align-center">
+                            <nav>
+                                <ul>
+                                    <li class="menu-item-has-children">
+                                        <a href="{{ path('app_home') }}"><span data-hover="Pagina de Inicio">Pagina de Inicio</span></a>
+                                    </li>
+                                    <li class="menu-item-has-children">
+                                        <a href="{{ path('app_album') }}"><span data-hover="Albumes">Albumes</span></a>
+                                    </li>
+                                     <li class="menu-item-has-children">
+                                        <a href="{{ path('app_evenements') }}"><span data-hover="Eventos">Eventos</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('app_gallery') }}"><span data-hover="Galeria">Galeria</span></a>
+                                    </li>
+                                    <li class="menu-item-has-children">
+                                        <a href="{{ path('app_market') }}"><span data-hover="Tienda">Tienda</span></a>
+                                    </li>
+                                    <li class="menu-item-has-children">
+                                        <a href="#"><span data-hover="News">News</span></a>
+                                        <ul class="sub">
+                                            <li><a href="#">All News</a></li>
+                                            <li><a href="#">Single News</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{{ path('contact_index') }}"><span data-hover="Contact">Contact</span></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="col-xl-2 col-md-6 col-6">
+                            <div class="hamburger-menu mobile">
+                                <div class="burger">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <!-- Bouton du Panier -->
+                            <div class="shop-button">
+                                <a href="{{ path('cart_view') }}">
+                                    <span>{{ totalItems }}</span>
+                                    <i class="ri-shopping-bag-fill"></i>
+                                </a>
+                            </div>
+                            <div class="social-accounts">
+                                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- OVERLAY MENU -->
+            <div class="overlay-menu">
+                <div class="close">
+                    <i class="ri-close-line"></i>
+                </div>
+                <div class="outer">
+                    <div class="inner">
+                        <nav>
+                            <ul>
+                                <li class="menu-item-has-children">
+                                    <a href="{{ path('app_home') }}"><span data-hover="Pagina de Inicio">Pagina de Inicio</span></a>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="{{ path('app_album') }}"><span data-hover="Albumes">Albumees</span></a>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="{{ path('app_evenements') }}"><span data-hover="Eventos">Eventos</span></a>
+                                </li>
+                                <li><a href="{{ path('app_gallery') }}"><span data-hover="Galeria">Galeria</span></a></li>
+                                <li class="menu-item-has-children">
+                                    <a href="{{ path('app_market') }}"><span data-hover="Tienda">Tienda</span></a>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="#"><span data-hover="News">News</span></a>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="{{ path('cart_view') }}"><span data-hover="News">Novedades</span></a>
+                                </li>
+                                <li><a href="{{ path('contact_index') }}"><span data-hover="Contacto">Contacto</span></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT -->
+        <div class="hero-4">
+            <video autoplay loop muted class="back-video" controls>
+                <source src="{{ asset('uploads/files/video1.webm') }}" type="video/webm">
+                Tu navegador no soporta el video.
+            </video>
+            <h1 class="text-1 text-anime">Amor Imperfecto</h1>
+            <h1 class="text-2 text-anime">Bad Boy El Dallano</h1>
+            <div class="right-bottom">
+                <p class="body-two text-anime">El dallano - Amor Imperfecto [Official Music Video] #Metasyconsejos</p>
+            </div>
+        </div>
+
+
+
+<div class="container " style="margin-top: 120px; ">
+    <div class="row">
+      <!-- Partie gauche -->
+        <div class="col-xl-2 col-md-2 ">
+            <div class="news-section">
+                <h4 class="purple-gradient">Actualidad músical</h4>
+                <div class="news-5">
+                     <h5>Pull Party Dakar - 16 de Noviembre de 2024</h5>
+                    <p>¡Únete a nosotros para una noche increíble de música y diversión en el Pull Party en Dakar!</p>
+                </div>
+                <div class="news-5">
+                    <h5>Bad Bunny anuncia gira mundial 2024</h5>
+                    <p>El artista puertorriqueño Bad Bunny ha confirmado su gira mundial "Most Wanted Tour" para el año 2024.</p>
+                </div>
+                <div class="news-5">
+                   <h5>El Dallano se licencia en Redes y Telecomunicaciones</h5>
+                    <p>El talentoso artista El Dallano ha completado su licenciatura en Redes y Telecomunicaciones, un logro digno de celebración.</p>
+                </div>
+           
+
+                <h4 class="purple-gradient">Videos</h4>
+                <div class="social-videos">
+                    <!-- Video TikTok -->
+                    <iframe width="100%" height="150" src="https://www.tiktok.com/embed/VIDEO_ID_TIKTOK" frameborder="0" allowfullscreen></iframe>
+
+                    <!-- Video Facebook -->
+                    <iframe width="100%" height="150" src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/VIDEO_URL" frameborder="0" allowfullscreen></iframe>
+
+                    <!-- Escuchar en Spotify -->
+                    <iframe src="https://open.spotify.com/embed/track/TRACK_ID" width="100%" height="150" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Partie centrale -->
+        <div class="col-xl-8 col-md-8 bg-warning">
+            <!-- ABOUT
+            ============================================= -->
+        <div class="about">
+            <div class="spacer-60"></div>
+            <div class="row">
+                <div class="col-xl-8 offset-xl-2">
+                    <div class="text-anime text-center mb-5">
+                        <h2 class="display-4 fw-bold">
+                            <span class="gradient-text">BIOGRAFÍA DEL ARTISTA</span>
+                        </h2>
+                    </div>
+                    
+                    <div class="bio-container">
+                        <div class="bio-header">
+                            <div class="bio-image-wrapper">
+                                <img src="{{ asset('uploads/images/images (1).jpg') }}" alt="El Dallano" class="bio-image"/>
+                            </div>
+                            <div class="bio-info">
+                                <h3 class="artist-name">El Dallano</h3>
+                                <ul class="artist-details">
+                                    <li><i class="bi bi-person-circle"></i> José Jora Alene Ondo</li>
+                                    <li><i class="bi bi-calendar3"></i> 28 años</li>
+                                    <li><i class="bi bi-music-note-beamed"></i> Compositor musical</li>
+                                    <li><i class="bi bi-mortarboard-fill"></i> Licenciado en Redes y Telecomunicaciones</li>
+                                    <li><i class="bi bi-geo-alt-fill"></i> Guinea Ecuatorial</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bio-content">
+                            <p class="bio-text">José Jora Alene Ondo, mejor conocido en el mundo artístico como El Dallano, es un músico y compositor ecuatoguineano apasionado por la música desde temprana edad. Nacido y criado en Guinea Ecuatorial, Dallano se sumergió en el mundo del arte musical desde los 15 años, combinando su amor por la música con su dedicación a los estudios. A pesar de las adversidades que enfrentó durante su infancia y juventud, transitando entre colegios lejos de su entorno familiar y en escenarios complicados en las calles de Bata y Malabo, su convicción y talento lo impulsaron a encontrar en la música y en Dios un propósito de vida.
+                               
+                            Desde su adolescencia, Dallano mostró una habilidad excepcional para manejar múltiples responsabilidades. Esta capacidad de disciplina lo llevó a destacar no solo en la música, sino también en su formación académica, obteniendo un título en Redes y Telecomunicaciones. Esta dualidad entre lo artístico y lo profesional es parte integral de su identidad, que lo define como un creador constante.
+
+                            El Dallano ha compartido su camino con figuras clave como Ruslan Cristian Esano Maye, su compañero en su segundo proyecto profesional, y ha contado con el apoyo de amigos de toda la vida que lo marcaron profundamente, como Roberto Alogo, Larry, Brandy, Bombín, y colegas de la escena musical de Guinea Ecuatorial, como Hermo G 77, Scuba Paradise, MG Nanay, entre otros. Su historia se ha nutrido de los valores de perseverancia y hermandad, junto a quienes comenzaron en proyectos como NSPD Cuadro y Guapos con Valor.
+
+                            En el ámbito de la moda, Dallano también dejó su huella, participando como modelo en la agencia Los Líderes de la Moda, donde fue reconocido como segundo caballero durante dos años consecutivos, sumando otro logro a su versátil trayectoria.
+
+                            Ahora, con un enfoque más claro y una visión profesional fortalecida, El Dallano presenta su empresa Esterlink como un símbolo de progreso personal y profesional, una pieza más de su legado en constante evolución. Su carrera artística ha transitado de su nombre inicial, "Badboy El Dallano", a consolidarse como El Dallano, un nombre que, hoy por hoy, representa tanto su recorrido musical como su resiliencia y crecimiento personal.</p>
+                            <!-- Le reste du texte de la biographie -->
+                        </div>
+                        
+                        <div class="bio-signature">
+                            <img class="sign fade-in" src="{{ asset('assets/images/sign.png') }}" alt="signature">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+            <!-- DISCOGRAPHY -->
+            <div class="spacer-150 spacer-md-90 spacer-sm-60"></div>
+            <div class="discography-3">
+                <div class="container">
+                    <div class="spacer-120 spacer-md-90 spacer-sm-60"></div>
+                    <div class="row">
+                        <div class="col-xl-6 align-left">
+                            <div class="text-anime">
+                                <h4 class="purple-gradient">Albumes</h4>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="arrows fade-right">
+                                <i class="left ri-arrow-left-s-line slick-prev"></i>
+                                <i class="right ri-arrow-right-s-line slick-next"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <!-- Album Slider -->
+                <div class="spacer-90"></div>
+
+                <div class="carousel-container">
+                    <button class="carousel-control prev" onclick="scrollCarousel(-1)">&#10094;</button>
+                    <div class="carousel-wrapper">
+                        <div class="carousel">
+                            {% for albm in albumes %}
+                            <div class="carousel-item">
+                                <div class="card">
+                                    <img src="{{ asset('uploads/images/' ~ albm.image) }}" class="card-img-top" alt="{{ albm.title }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ albm.title }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                                <p>Ningun album disponible.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <button class="carousel-control next" onclick="scrollCarousel(1)">&#10095;</button>
+                </div>
+
+                <div class="spacer-60"></div>
+                <div class="bordered-outer fade-in" data-delay=".6">
+                    <a href="{{ path('app_album') }}" class="bordered-link">Ver todos los albumes</a>
+                </div>
+                <div class="spacer-150 spacer-sm-90"></div>
+            </div>
+            <!-- UPCOMING GIGS -->
+            <div class="upcoming-gigs-2" style="background-color: #add8e6; width: 100%;">
+                <!-- SECTION TITLE -->
+                <div class="container">
+                    <div class="spacer-150 spacer-md-90 spacer-sm-60"></div>
+                    <div class="section-title row gx-0">
+                        <div class="col-xl-6 col-md-6">
+                            <div class="text-anime">
+                                <h4 class="purple-gradient">Próximos eventos</h4>
+                            </div>
+                            <p class="body-three text-anime">Sigue nuestros conciertos en directo en todo <br>
+                                el mundo.</p>
+                        </div>
+                        <div class="col-xl-6 col-md-6 right-area fade-right">
+                            <div class="bordered-outer">
+                                <a href="{{ path('app_evenements') }}" class="bordered-link">Ver todos los eventos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- GIGS -->
+                <div class="spacer-60 spacer-md-15"></div>
+                <div class="gigs">
+                    <div class="container">
+                        <ul>
+                            {% for evenement in evenements %}
+                                <li class="row gx-0 fade-in">
+                                    <div class="col-xl-3 col-md-3 list-area">
+                                        <span class="date">{{ evenement.date | date('d') }}</span>
+                                        <div class="inner-right">
+                                            <span class="month">{{ evenement.date | date('F') }}</span>
+                                            <span class="time">{{ evenement.date|date('H:i') }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 list-area">
+                                        <span class="location"><i class="fas fa-map-marker-alt"></i>{{ evenement.location }}</span>
+                                    </div>
+                                    <div class="col-xl-3 col-md-3 list-area">
+                                        <div class="link-outer">
+                                            <a href="#" class="link-with-arrow white"><span data-hover="Buy ticket">Pagate una entrada</span></a>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li>Ningun evento encontrado.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- LATEST NEWS -->
+            <div class="container">
+                <div class="spacer-150 spacer-md-60"></div>
+                <div class="news">
+                    <div class="section-title row gx-0">
+                        <div class="col-xl-6">
+                            <div class="text-anime">
+                                <h4 class="purple-gradient fade-left">Hay News</h4>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 right-area fade-right">
+                            <div class="bordered-outer">
+                                <div class="bordered-link">View all news</div>
+                            </div>
+                        </div>
+                        <hr class="hr-animation">
+                    </div>
+                    <!-- NEWS BOXES-->
+                    <div class="spacer-60"></div>
+                    <div class="row px-0">
+                        <!-- a news item -->
+                        <div class="col-xl-4 col-md-4">
+                            <a href="#" class="news-item-2">
+                                <div class="image-anime">
+                                    <img src="assets/images/news-1.jpg" alt="news">
+                                </div>
+                                <span class="date text-anime">OCTOBER 14, 2022</span>
+                                <h6 class="title text-anime">Beautiful Mistakes Video <br>Out Now</h6>
+                            </a>
+                        </div>
+                        <!-- a news item -->
+                        <div class="col-xl-4 col-md-4 fade-down">
+                            <a href="#" class="news-item-2">
+                                <div class="image-anime">
+                                    <img src="assets/images/news-2.jpg" alt="news">
+                                </div>
+                                <span class="date text-anime">OCTOBER 14, 2022</span>
+                                <h6 class="title text-anime">New Style From Christine <br>Out Now</h6>
+                            </a>
+                        </div>
+                        <!-- a news item -->
+                        <div class="col-xl-4 col-md-4 fade-down">
+                            <a href="#" class="news-item-2">
+                                <div class="image-anime">
+                                    <img src="assets/images/news-3.jpg" alt="news">
+                                </div>
+                                <span class="date text-anime">OCTOBER 14, 2022</span>
+                                <h6 class="title text-anime">Christine  is on the Cover of the <br>March Issue</h6>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      <!-- Partie droite -->
+        <div class="col-xl-2 col-md-2">
+            <div class="upcoming-gigs">
+                <h4 class="purple-gradient">Vidéos YouTube</h4>
+                <div class="youtube-videos">
+                    <div class="video-card">
+                        <iframe src="https://www.youtube.com/embed/H0iy6Srpkq0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-card">
+                        <iframe src="https://www.youtube.com/embed/bi29w8LjnHI" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-card">
+                        <iframe src="https://www.youtube.com/embed/gNd0jH8yJd8" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+   
+
+            <!-- FOOTER
+    ============================================= -->
+    <footer class="type-1 align-center">
+        <div class="spacer-120"></div>
+        <a href="mailto:esterlink@gmail.com" class="footer-email flip-effect"><span data-hover="esterlink@gmail.com">esterlink@gmail.com</span></a>
+        <div class="spacer-30"></div>
+        <div class="social">
+            <a href="#" class="flip-effect"><span data-hover="facebook">facebook</span></a>
+            <a href="#" class="flip-effect"><span data-hover="twitter">twitter</span></a>
+            <a href="#" class="flip-effect"><span data-hover="instagram">instagram</span></a>
+            <a href="#" class="flip-effect"><span data-hover="youtube">youtube</span></a>
+            <a href="#" class="flip-effect"><span data-hover="spotify">spotify</span></a>
+        </div>
+        <div class="spacer-60"></div>
+        <div class="footer-logo"><img src="assets/images/logo.png" alt="logo"></div>
+        <div class="spacer-30"></div>
+        <p class="copyright subheading">© 2025 Esterlink Service  /  Design by Cristian</p>
+        <div class="footer-right-image" style="background-image: url(/assets/images/footer-image.jpg);"></div>
+        <div class="spacer-60"></div>
+    </footer>
+        </main>
+    </div>
+
+
+
+
+    <!-- Scripts -->
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/caroussel.js') }}"></script>
+ 
+
+</body>
+</html>
+
+

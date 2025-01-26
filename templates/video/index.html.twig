@@ -1,0 +1,72 @@
+{# templates/video_gallery.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <!-- PAGE CAPTION
+    ============================================= -->	
+    <div class="page-caption-1">
+        <div class="caption-content">
+            <p class="body-three">Video Gallery</p>
+            <div class="spacer-15"></div>
+            <h3>Videos We Share<br>
+                With You</h3>
+        </div>
+    </div>
+
+    <!-- VIDEOS
+    ============================================= -->
+    <div class="spacer-120 spacer-md-30 spacer-sm-0"></div>
+    <div class="container featured-video">
+        <div class="video-player-one" style="height:50vh">
+            <video class="video-js" playsinline controls preload="auto" poster="{{ asset('uploads/images/video-cover.jpg') }}">
+                <source src="{{ asset('uploads/files/camilo-millones-official-video-66db11686ccf3232365877.mp4') }}" type="video/mp4" />
+            </video>
+        </div>
+        <div class="spacer-45"></div>
+        <div class="video-info align-center">
+            <span class="subheading">VIDEO CLIP</span>
+            <div class="spacer-15"></div>
+            <h5>New Video Clip - Daylight ft. Future Is Out Now</h5>
+        </div>
+    </div>
+
+    <!-- Other Videos -->
+    <div class="spacer-150 spacer-md-90 spacer-sm-60"></div>
+    <div class="container other-videos">
+        <div class="videos-header">
+            <div class="row gx-0">
+                <div class="col-xl-4 col-lg-3">
+                    <h6>Other Videos</h6>
+                </div>
+                <div class="col-xl-8 col-lg-9 align-right">
+                    <div class="filter-list">
+                        <ul>
+                            <li data-filter=".clips">Video Clips</li>
+                            <li data-filter=".live">Live Performances</li>
+                            <li data-filter=".concert">Concerts</li>
+                            <li data-filter="*" class="select-cat">All Videos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="spacer-60"></div>
+        <div class="masonry row gy-5">
+             {% for video in videos %}
+                <a href="{{ path('single_video', {'id': video.id}) }}" class="col-xl-6 col-lg-6 grid-item ">
+                    <div class="grid-item-wrap">
+                        <div class="video-poster">
+                            <i class="ri-play-fill"></i>
+                            <img src="{{ asset('uploads/images/' ~ video.thumbnail) }}" alt="video">
+                        </div>
+                        <div class="video-info align-center">
+                            <div class="spacer-15"></div>
+                            <h6>{{ video.title }}</h6>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

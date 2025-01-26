@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contáctanos{% endblock %}
+
+{% block content %}
+<style>
+    /* Personnalisation des inputs pour les rendre transparents et plus grands */
+    .form-control-transparent {
+        background-color: transparent;
+        border: 1px solid #ced4da; /* Bordure subtile */
+        font-size: 1.1rem; /* Augmente légèrement la taille du texte */
+        padding: 1.2rem; /* Augmente l'espace intérieur */
+        border-radius: 30px; /* Bordures arrondies */
+        transition: all 0.3s ease;
+    }
+
+    .form-control-transparent:focus {
+        background-color: transparent;
+        border-color: #28a745; /* Changer la couleur de la bordure au focus */
+        box-shadow: 0 0 10px rgba(40, 167, 69, 0.5); /* Ombre douce lors du focus */
+    }
+
+    .form-label {
+        font-weight: 500;
+    }
+
+    /* Personnalisation du bouton */
+    .btn-custom {
+        background-color: #28a745; /* Couleur de fond verte */
+        color: white; /* Texte blanc */
+        font-size: 1.1rem; /* Taille du texte */
+        font-weight: bold; /* Texte en gras */
+        padding: 1rem 2rem; /* Espacement interne */
+        border-radius: 50px; /* Bordure arrondie */
+        transition: all 0.3s ease; /* Transition fluide */
+        box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3); /* Ombre douce */
+    }
+
+    /* Effet au survol (hover) du bouton */
+    .btn-custom:hover {
+        background-color: #218838; /* Changer la couleur de fond au survol */
+        box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4); /* Ombre plus intense */
+        transform: translateY(-2px); /* Effet de décalage */
+    }
+
+    /* Effet actif (clic) sur le bouton */
+    .btn-custom:active {
+        background-color: #1e7e34; /* Couleur au clic */
+        transform: translateY(2px); /* Effet de pression */
+    }
+</style>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-gradient bg-success text-white text-center py-4">
+                    <h2 class="mb-0">Contáctanos</h2>
+                    <p class="small mb-0">Estamos aquí para ayudarte</p>
+                </div>
+                <div class="card-body p-4">
+                    {% for label, messages in app.flashes %}
+                        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                            {% for message in messages %}
+                                {{ message|escape }}
+                            {% endfor %}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                        </div>
+                    {% endfor %}
+
+                    <form method="POST" action="{{ path('contact_send') }}">
+                        {{ csrf_token('contact_form') }}
+                        <div class="form-group row mb-4">
+                            <label for="name" class="col-sm-3 col-form-label text-right">Nombre</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control form-control-lg rounded-pill shadow-sm form-control-transparent" id="name" name="name" placeholder="Tu nombre" required>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label for="email" class="col-sm-3 col-form-label text-right">Correo Electrónico</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control form-control-lg rounded-pill shadow-sm form-control-transparent" id="email" name="email" placeholder="Tu correo electrónico" required>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label for="subject" class="col-sm-3 col-form-label text-right">Asunto</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control form-control-lg rounded-pill shadow-sm form-control-transparent" id="subject" name="subject" placeholder="El asunto de tu mensaje" required>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label for="message" class="col-sm-3 col-form-label text-right">Mensaje</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control form-control-lg rounded-pill shadow-sm form-control-transparent" id="message" name="message" rows="5" placeholder="Escribe tu mensaje aquí" required></textarea>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-custom btn-lg rounded-pill shadow-sm">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

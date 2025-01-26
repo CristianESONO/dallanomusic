@@ -1,0 +1,76 @@
+{# templates/gallery.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Photo Gallery{% endblock %}
+
+{% block content %}
+    <!-- Hotjar Tracking Code -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:3455442,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+
+    <!-- PAGE CAPTION -->
+    <div class="page-caption-1">
+        <div class="caption-content">
+            <p class="body-three orange-gradient">Galeria de Fotos</p>
+            <h4>Mis<br> mejores recuerdos</h4>
+            <div class="spacer-30"></div>
+        </div>
+    </div>
+
+<!-- PHOTO GALLERY -->
+<div class="photo-gallery-2">
+    <div class="container px-4 px-sm-0">
+        <div class="spacer-90 spacer-md-60 spacer-sm-45"></div>
+        <div class="gallery masonry row g-3 g-md-5">
+            {% for gallery in galleries %}
+                {% for image in gallery.images %}
+                    <div class="col-xl-3 col-6 grid-item">
+                        <div class="gallery-item">
+                            <a href="{{ asset('uploads/images/' ~ image) }}" class="lightbox">
+                                <div class="image-wrapper">
+                                    <img src="{{ asset('uploads/images/' ~ image) }}" alt="{{ gallery.title }}" class="img-fluid">
+                                    <div class="overlay">
+                                        <i class="fas fa-search-plus"></i>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                            <div class="gallery-item-footer">
+                                <span class="likes-count" data-image-id="{{ image }}">
+                                    {% set likes_count = gallery.likes is not null and gallery.likes[image] is defined ? gallery.likes[image] : 0 %}
+                                    {{ likes_count }}
+                                </span>
+                                <form action="{{ path('gallery_like', { 'id': gallery.id, 'image': image }) }}" method="POST" class="like-form">
+                                    <button type="submit" class="btn-like {% if gallery.likes[image] is defined %}liked{% endif %}">
+                                        <i class="fas fa-heart"></i> 
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+    <!-- Include lightbox JS -->
+    <script src="{{ asset('path/to/lightbox.js') }}"></script>
+    <!-- Include your custom JS -->
+    <script src="{{ asset('path/to/your/scripts.js') }}"></script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/gallery.js') }}"></script>
+{% endblock %}

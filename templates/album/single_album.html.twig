@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ album.title }}{% endblock %}
+
+{% block content %}
+<!-- SINGLE ALBUM -->
+<div class="spacer-250 spacer-md-150 spacer-sm-120"></div>
+<div class="single-album-hero">
+    <div class="container px-md-0 px-3">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6">
+                <div class="outer">
+                    <div class="inner">
+                        <div class="album-info">
+                            <h3>{{ album.title }}</h3>
+                            <div class="spacer-30"></div>
+                            <span class="info">Artist: {{ album.artist }}</span><br>
+                            <span class="info">{{ album.publishedAt|date('F j, Y') }}</span>
+                            <div class="spacer-45"></div>
+                            <a href="#" class="button-two icon">
+                                <div class="button-wrapper">
+                                    <span data-hover="Buy on iTunes">Buy on iTunes</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 mt-md-0 mt-5 album-poster">
+                <img src="{{ asset('uploads/images/' ~ album.image) }}" alt="Album Cover" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Album INFO -->
+<div class="spacer-120 spacer-md-90 spacer-sm-60"></div>
+<div class="single-album-content">
+    <div class="container px-md-0 px-3">
+        <h4>Description</h4>
+        <div class="spacer-30"></div>
+        <p class="body-two">{{ album.description }}</p>
+        <br> <br>
+
+        <!-- MUSIC PLAYER -->
+        <div class="music-player">
+            <div class="container">
+                <div class="fiddle-player">
+                    <div class="row gx-0">
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="album-cover">
+                                <img class="album-art" src="{{ asset('uploads/images/' ~ album.image) }}" alt="Album Cover">
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-6 col-md-12 player-right">
+                            <div class="playlist-header">
+                                <div class="left-area">
+                                    <h2 class="album-name">{{ album.title }}</h2>
+                                    <span class="artist-name">by {{ album.artist }}</span>
+                                </div>
+                                <div class="right-area">
+                                    <a href="#" class="buy-button">BUY ON ITUNES</a>
+                                </div>
+                            </div>
+                            <!-- Play List -->
+                            <div class="play-list">
+                                {% for music in musics %}
+                                    <div class="list-song amplitude-play-pause amplitude-song-container" 
+                                         data-id="{{ music.id }}" 
+                                         data-title="{{ music.title }}" 
+                                         data-album="{{ music.album.title }}"
+                                         data-cover="{{ asset('uploads/images/' ~ album.image) }}" 
+                                         data-url="{{ asset('uploads/files/' ~ music.file) }}">
+                                         <span class="song-title">{{ music.title }}</span> 
+                                         <span class="song-artist">- {{ music.artist }}</span>
+                                    </div>
+                                {% else %}
+                                    <p class="no-tracks">No tracks available.</p>
+                                {% endfor %}
+                            </div>
+                            <!-- Controls -->
+                            <div class="player-controls">
+                                <div class="progress-container">
+                                    <input type="range" class="amplitude-song-slider" min="0" max="100" value="0">
+                                    <progress id="song-played-progress" class="amplitude-song-played-progress" value="0"></progress>
+                                    <progress id="song-buffered-progress" class="amplitude-buffered-progress" value="0"></progress>
+                                </div>
+                                <div class="controls-row">
+                                    <div class="current-song">
+                                        <span class="label">PLAYING</span>
+                                        <div class="song-title" data-amplitude-song-info="name"></div>
+                                        <div class="song-duration" data-amplitude-song-info="duration"></div>
+                                    </div>
+                                    <div class="controls">
+                                        <div class="control-button prev amplitude-prev"><i class="ri-skip-back-fill"></i></div>
+                                        <div class="control-button play-pause amplitude-play-pause"></div>
+                                        <div class="control-button next amplitude-next"><i class="ri-skip-forward-fill"></i></div>
+                                    </div>
+                                    <div class="time">
+                                        <div class="playing-time">
+                                            <span class="play-current-time">
+                                                <span class="current-time">
+                                                    <span class="amplitude-current-minutes"></span>:<span class="amplitude-current-seconds"></span>
+                                                </span>
+                                            </span>
+                                            <span class="brace">/</span>
+                                            <span class="play-total-time">
+                                                <span class="amplitude-duration-minutes"></span>:<span class="amplitude-duration-seconds"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of MUSIC PLAYER -->
+
+    </div>
+</div>
+
+<script>
+    Amplitude.init({
+        songs: [
+            {% for music in musics %}
+            {
+                "name": "{{ music.title }}",
+                "artist": "{{ music.artist }}",
+                "url": "{{ asset('uploads/files/' ~ music.file) }}",
+                "cover_art_url": "{{ asset('uploads/images/' ~ album.image) }}"
+            }
+            {% if not loop.last %},{% endif %}
+            {% endfor %}
+        ]
+    });
+</script>
+{% endblock %}

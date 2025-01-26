@@ -1,0 +1,13 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+         audio_files:
+            uri_prefix: /uploads/files
+            upload_destination: '%kernel.project_dir%/public/uploads/files'
+            inject_on_load: false  # Si vous ne souhaitez pas injecter le fichier lors du chargement de l'entité
+            delete_on_update: true # Supprime l'ancien fichier lors de la mise à jour
+            delete_on_remove: true # Supprime le fichier lorsque l'entité est supprimée
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer # Pour générer un nom unique au fichier
+        
+       

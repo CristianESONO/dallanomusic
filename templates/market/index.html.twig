@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuestra Tienda{% endblock %}
+
+{% block content %}
+
+    <!-- PAGE CAPTION -->
+    <div class="page-caption-1">
+        <div class="bg-image" style="background-image: url('{{ asset('assets/images/hero-8.jpg') }}');"></div>
+        <div class="caption-content">
+            <h2 class="tienda-text">NUESTRA TIENDA</h2>
+        </div>
+    </div>
+
+
+
+    <!-- STORE -->
+    <div class="shop-section">
+        <div class="container px-md-0 px-4">
+            <div class="woocommerce-notices-wrapper row gx-0">
+                <div class="col-6 result-count">
+                    <span>Showing all {{ products|length }} results</span>
+                </div>
+                <div class="col-6 ordering align-right">
+                     <form method="get" action="{{ path('app_market') }}">
+                        <div class="select-box">
+                            <select name="sort" id="sortBy" onchange="this.form.submit()">
+                                <option value="name" {% if app.request.query.get('sort') == 'name' %}selected{% endif %}>Orden por defecto</option>
+                                <option value="price_asc" {% if app.request.query.get('sort') == 'price_asc' %}selected{% endif %}>Ordenar por precio: de menor a mayor</option>
+                                <option value="price_desc" {% if app.request.query.get('sort') == 'price_desc' %}selected{% endif %}>Ordenar por precio: de mayor a menor</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="store">
+        <div class="container px-md-0 px-4">
+            <div class="spacer-60 spacer-md-30"></div>
+            <div class="row g-md-5 g-3">
+                {% for product in products %}
+                <!-- Product -->
+                <div class="col-xl-4 col-lg-4 " >
+                    <div class="product">
+                        {% if product.isOnSale %}
+                            <div class="sale">SALE!</div>
+                        {% endif %}
+                        {% if product.getSalePrice() is not null %}
+                            <div class="new">NEW!</div>
+                        {% endif %}
+                        <img src="{{ asset('uploads/images/' ~ product.getImageUrl()) }}" alt="product">
+                        <div class="product-info row gx-0">
+                            <div class="col-6">
+                                <p class="product-name">{{ product.getName() }}</p>
+                                <span class="product-price">\FCFA {{ product.getSalePrice() is not null ? product.getSalePrice() : product.getPrice() }}</span>
+                            </div>
+                            <div class="col-6 align-right">
+                                {# Dans le template produit #}
+                                <form action="{{ path('cart_add', { 'id': product.id }) }}" method="post" class="add-to-cart-form">
+                                    <div class="input-container">
+                                        <input type="number" name="quantity" class="quantity-input" value="1" min="1" aria-label="Quantité" required>
+                                        <button type="submit" class="add-to-cart-btn">
+                                            <i class="ri-shopping-bag-fill"></i>
+                                        </button>
+                                    </div>
+                                </form>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/cart.js') }}"></script>
+{% endblock %}

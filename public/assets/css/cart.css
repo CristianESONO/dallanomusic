@@ -1,0 +1,106 @@
+/* Conteneur du formulaire */
+.add-to-cart-form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+/* Conteneur de l'input et du bouton pour un bon alignement */
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Style de l'input pour la quantité */
+.quantity-input {
+    width: 70px;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-right: 15px;
+    outline: none;
+}
+
+/* Effet au survol et focus de l'input */
+.quantity-input:focus {
+    border-color: #28a745; /* Vert clair au focus */
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); /* Effet de halo */
+}
+
+/* Style du bouton ajouter au panier */
+.add-to-cart-btn {
+    background-color: #28a745; /* Vert principal */
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Icône du bouton */
+.add-to-cart-btn i {
+    margin-right: 8px;
+}
+
+/* Effet au survol du bouton */
+.add-to-cart-btn:hover {
+    background-color: #218838; /* Vert plus foncé au survol */
+    transform: translateY(-3px); /* Léger effet de soulèvement */
+}
+
+/* Effet actif du bouton (au clic) */
+.add-to-cart-btn:active {
+    background-color: #1e7e34;
+    transform: translateY(0);
+}
+
+
+/* Custom Button Style */
+.pagar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 30px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Add a little icon spacing */
+.pagar-btn i {
+    margin-right: 8px;
+}
+
+/* Hover effect */
+.pagar-btn:hover {
+    background-color: #218838; /* Slightly darker green */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); /* Add shadow on hover */
+}
+
+
+/* public/css/styles.css */
+
+.table td, .table th {
+    border-bottom: 1px solid #dee2e6; /* Adds a border below each cell */
+}
+
+.table thead th {
+    border-bottom: 2px solid #dee2e6; /* Adds a thicker border below the header cells */
+}
+
+
+
+.table tbody td:first-child, .table thead th:first-child {
+    border-left: 0; /* Removes the left border of the first column */
+}

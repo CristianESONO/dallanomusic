@@ -1,0 +1,40 @@
+easy_admin:
+    design:
+        menu:
+            - { name: 'Dashboard', route: 'admin' }
+            - { name: 'Blog Posts', entity: 'App\Entity\BlogPost' }
+            - { name: 'Comments', entity: 'App\Entity\Comment' }
+            - { name: 'Videos', entity: 'App\Entity\Video' }
+            - { name: 'Music', entity: 'App\Entity\Music' }
+            - { name: 'Reviews', entity: 'App\Entity\Review' }
+            - { name: 'Galleries', entity: 'App\Entity\Gallery' }
+            - { name: 'Contact Messages', entity: 'App\Entity\ContactMessage' }
+    entities:
+        BlogPost:
+            class: App\Entity\BlogPost
+            label: 'Blog Posts'
+            controller: App\Controller\BlogPostCrudController
+        Comment:
+            class: App\Entity\Comment
+            label: 'Comments'
+            controller: App\Controller\CommentCrudController
+        Video:
+            class: App\Entity\Video
+            label: 'Videos'
+            controller: App\Controller\VideoCrudController
+        Music:
+            class: App\Entity\Music
+            label: 'Music'
+            controller: App\Controller\MusicCrudController
+        Review:
+            class: App\Entity\Review
+            label: 'Reviews'
+            controller: App\Controller\ReviewCrudController
+        Gallery:
+            class: App\Entity\Gallery
+            label: 'Galleries'
+            controller: App\Controller\GalleryCrudController
+        ContactMessage:
+            class: App\Entity\ContactMessage
+            label: 'Contact Messages'
+            controller: App\Controller\ContactMessageCrudController

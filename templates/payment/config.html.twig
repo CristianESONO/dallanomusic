@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Configuration CinetPay{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2>Configuration CinetPay</h2>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{{ path('payment_gateway_configure') }}">
+                <div class="mb-3">
+                    <label for="api_key" class="form-label">API Key</label>
+                    <input type="text" class="form-control" id="api_key" name="api_key" placeholder="Entrez votre clé API" required>
+                </div>
+                <div class="mb-3">
+                    <label for="site_id" class="form-label">Site ID</label>
+                    <input type="text" class="form-control" id="site_id" name="site_id" placeholder="Entrez votre ID de site" required>
+                </div>
+                <div class="mb-3">
+                    <label for="secret_key" class="form-label">Secret Key</label>
+                    <input type="text" class="form-control" id="secret_key" name="secret_key" placeholder="Entrez votre clé secrète" required>
+                </div>
+                <div class="mb-3">
+                    <label for="timestamp" class="form-label">Timestamp</label>
+                    <input type="datetime-local" class="form-control" id="timestamp" name="timestamp" required>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">Enregistrer</button>
+                    <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

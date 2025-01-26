@@ -1,0 +1,70 @@
+{# templates/album/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenements{% endblock %}
+
+{% block content %}
+    <!-- PAGE CAPTION TYPE 2
+    ============================================= -->  
+    <div class="page-caption-2">
+        <div class="caption-content">
+            <div class="container">
+                <h3 class="orange-gradient">Todo los eventos de Dallano</h3>
+                <p class="body-three">Follow our amazing shows around the world</p>
+            </div>
+        </div>
+        <div class="bg-image" style="background-image: url({{ asset('assets/images/page-cover-2.png') }});"></div>
+    </div>
+
+    <!-- UPCOMING GIGS
+    ============================================= -->
+    <div class="upcoming-gigs-1 orange">
+        <div class="spacer-150 spacer-md-90 spacer-md-60"></div>
+        <div class="spacer-60"></div>
+        <div class="gigs">
+            <div class="container">
+                <ul>
+                    {% for evenement in evenements %}
+                        <li class="row gx-0">
+                            <div class="col-xl-3 col-md-3 col-5 list-area">
+                                <div class="left-area">
+                                    <span class="date">{{ evenement.date|date('M d') }}</span>
+                                    <span class="city">{{ evenement.location }}</span>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-4 col-7 list-area">
+                                <span class="location">
+                                    <i class="fas fa-map-marker-alt"></i>{{ evenement.location }}
+                                </span>
+                                <span class="time mobile">
+                                    <i class="ri-time-line"></i>{{ evenement.date|date('H:i') }}
+                                </span>
+                            </div>
+                            <div class="col-xl-2 col-md-2 d-none d-md-block list-area">
+                                <span class="time">
+                                    <i class="ri-time-line"></i>{{ evenement.date|date('H:i') }}
+                                </span>
+                            </div>
+                            <div class="col-xl-3 col-md-3 col-12 list-area">
+                                <a href="#" class="button-two">
+                                    <div class="button-wrapper">
+                                        <span data-hover="Buy Ticket">Comprar Entradas</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="row gx-0">
+                            <div class="col-12 list-area">
+                                <p>No upcoming events</p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}
